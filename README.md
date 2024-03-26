@@ -16,4 +16,4 @@ This repository will be a webservice that host a simple website to turn on and o
    1. Once the local_key and device_id are fetched from the tuya app, the app is no longer needed, unless the devices get paired anew
    2. After setup the devices using the tuya app, the internet access from the devices can be disabled in the router settings
 
-4. Assign a fixxed ip4-adress for the device
+4. Assign a fixxed ip4-address for the device

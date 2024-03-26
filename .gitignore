@@ -161,3 +161,4 @@ cython_debug/
 
 # Custom
 tinytuya_files
+config.json

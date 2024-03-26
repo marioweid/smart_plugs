@@ -1,5 +1,5 @@
 import tinytuya
-from models import DeviceStatus
+from backend.models.tuya import DeviceStatus
 
 class SmartDevice:
 

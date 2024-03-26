@@ -1,0 +1,14 @@
+[
+    {
+        "name":"device_1",
+        "device_id":"id_1",
+        "local_key":"key_1",
+        "ip4_address":"address_1"
+    },
+    {
+        "name":"device_2",
+        "device_id":"id_2",
+        "local_key":"key_2",
+        "ip4_address":"address_2"
+    }
+]

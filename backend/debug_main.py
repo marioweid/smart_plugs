@@ -1,4 +1,4 @@
-from smart_plugs.SmartDevice import SmartDevice
+from backend.SmartDevice import SmartDevice
 import os
 
 # Device 1

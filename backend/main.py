@@ -1,9 +1,10 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from models.alchemy import Base, Device
+from models.alchemy import Device
 from fastapi import FastAPI, Depends
 from SmartDevice import SmartDevice
 
+from models.responses import DevicesResponse
 from database import get_db, init_db
 import uvicorn
 
@@ -14,7 +15,7 @@ except IntegrityError as e:
     print(f"Devies from config file allready present in database")
 app = FastAPI()
 
-@app.get("/devices/")
+@app.get("/devices/", response_model=list[DevicesResponse], tags=["Devices"])
 def get_devices(db: Session = Depends(get_db)):
     devices = [SmartDevice(
                 device_id=device.device_id,

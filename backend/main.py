@@ -1,30 +1,34 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from backend.models.alchemy import Base, Device
-from sqlalchemy.engine.base import Engine
-import os
-import json
+from sqlalchemy.exc import IntegrityError
+from models.alchemy import Base, Device
+from fastapi import FastAPI, Depends
+from SmartDevice import SmartDevice
 
-conn_url = os.environ.get("SQLALCHEMY_DATABASE_URL", "sqlite:///test.sqlite")
+from database import get_db, init_db
+import uvicorn
 
-engine = create_engine(conn_url)
-Base.metadata.create_all(bind=engine)
+# Start App, Init db
+try:
+    init_db(file_path="config.json")
+except IntegrityError as e:
+    print(f"Devies from config file allready present in database")
+app = FastAPI()
 
-def read_config_file(file_path: str) -> list[Device]:
-    with open(file_path, 'r') as file:
-        devices_json = json.load(file)
-        
-    devices = [Device(**item) for item in devices_json]
-    return devices
+@app.get("/devices/")
+def get_devices(db: Session = Depends(get_db)):
+    devices = [SmartDevice(
+                device_id=device.device_id,
+                local_key=device.local_key,
+                ip4_address=device.ip4_address,
+                db_id=device.id,
+                name=device.name
+            ) for device in db.query(Device).all()]
     
-
-def init_db(engine: Engine, file_path: str):
-    print(f"Initializing db from file {file_path}")
-    devices = read_config_file(file_path=file_path)
-    # new_device = Device(device_id="some_device_id", local_key="some_local_key", ip4_address="some_ip4_address", name="some_name")
-            
-    with Session(bind=engine, autocommit=False, autoflush=False) as session:
-        session.add_all(devices)
-        session.commit()
+    # Try getting the deive states
+    device_states = [{"id": device.db_id, "name": device.name, "is_on": device.is_on()} for device in devices]
     
-init_db(engine=engine, file_path="config.json")
+    return device_states
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, port=5000, host="0.0.0.0")

@@ -1,1 +1,3 @@
-tintytuya>=1.13.2
+tinytuya>=1.13.2
+fastapi>=0.110.0
+sqlalchemy>=2.0.29

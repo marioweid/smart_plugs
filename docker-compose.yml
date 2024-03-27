@@ -23,8 +23,6 @@ services:
       NODE_ENV: development
     networks:
       - smart_plug_network
-    volumes:
-      - ./frontend:/app
 
 networks:
   smart_plug_network:

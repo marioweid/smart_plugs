@@ -6,12 +6,9 @@ services:
     restart: always
     build: backend
     ports:
-      - "5000:5000"
-    environment:
-      BACKEND_PORT: 5000
+      - 5000
     volumes:
       - /home/mario/tools/smart_plugs/config.json:/app/config.json:ro
-
     networks:
       - smart_plug_network
   

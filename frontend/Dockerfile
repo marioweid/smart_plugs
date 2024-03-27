@@ -22,8 +22,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage. (Disable them)
-ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
-ENV NEXT_PUBLIC_AUTH_TOKEN=${NEXT_PUBLIC_AUTH_TOKEN}
 # ARG NEXT_SHARP_PATH=/app/node_modules/sharp
 # ENV NEXT_SHARP_PATH=${NEXT_SHARP_PATH}
 

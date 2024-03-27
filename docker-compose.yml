@@ -22,8 +22,11 @@ services:
       - "8082:3000"
     environment:
       BACKEND_URL: http://backend:5000
+      NODE_ENV: development
     networks:
       - smart_plug_network
+    volumes:
+      - ./frontend:/app
 
 networks:
   smart_plug_network:

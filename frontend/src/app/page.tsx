@@ -1,7 +1,7 @@
 import DeviceCard from "@/components/device-card";
 import RefreshButton from "@/components/refresh-button";
-import { DeviceResponse } from "@/lib/models/Responses";
-import { getDevices, toggleDevice } from "@/lib/ServerSideRequests";
+import { DeviceResponse } from "@/logic/models/Responses";
+import { getDevices, toggleDevice } from "@/logic/ServerSideRequests";
 
 export default async function DeviceSite() {
     let devices: Array<DeviceResponse> = await getDevices()

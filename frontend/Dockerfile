@@ -62,4 +62,4 @@ ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 
 # server.js is created by next build from the standalone output
-CMD ["echo", "Hello from frontend"]
+CMD ["node", "server.js"]

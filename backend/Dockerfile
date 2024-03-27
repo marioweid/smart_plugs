@@ -44,4 +44,4 @@ RUN poetry install
 WORKDIR /app
 COPY . .
 
-CMD ["echo", "Hello from backend"]
+CMD ["/opt/pysetup/.venv/bin/poetry", "run", "uvicorn", "--port", "5000", "main:app"]

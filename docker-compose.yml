@@ -10,7 +10,6 @@ services:
     environment:
       CONFIG_PATH: $CONFIG_PATH
       BACKEND_PORT: 5000
-    command: ["/opt/pysetup/.venv/bin/poetry", "run", "uvicorn", "--port", "5000", "main:app"]
 
     networks:
       - smart_plug_network
@@ -24,7 +23,6 @@ services:
       BACKEND_URL: $BACKEND_URL
     networks:
       - smart_plug_network
-    command: ["node", "server.js"]
 
 networks:
   smart_plug_network:

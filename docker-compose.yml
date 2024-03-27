@@ -24,6 +24,7 @@ services:
       BACKEND_URL: $BACKEND_URL
     networks:
       - smart_plug_network
+    command: ["node", "server.js"]
 
 networks:
   smart_plug_network:

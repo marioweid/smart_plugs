@@ -44,7 +44,4 @@ RUN poetry install
 WORKDIR /app
 COPY . .
 
-# CMD ["uvicorn", "--reload", "main:app"]
-# CMD ["/opt/pysetup/.venv/bin/uvicorn", "--port", $BACKEND_PORT, "main:app"]
-CMD ["poetry", "run", "uvicorn", "--port", $BACKEND_PORT, "main:app"]
-#uvicorn.run(app, port=5000, host="0.0.0.0")
+CMD ["echo", "Hello from backend"]

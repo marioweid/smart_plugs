@@ -7,7 +7,7 @@ services:
     ports:
       - "5000"
     environment:
-      CONFIG_PATH: "/home/mario/tools/smart_plugs/config.json"
+      CONFIG_PATH: $CONFIG_PATH
     command: ["uvicorn", "--host", "0.0.0.0", "--port", "5000", "main:app"]
 
     networks:
@@ -18,10 +18,7 @@ services:
     ports:
       - "5001:3000"
     environment:
-      BACKEND_URL: "http://backend:5000"
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
+      BACKEND_URL: $BACKEND_URL
     networks:
       - smart_plug_network
 

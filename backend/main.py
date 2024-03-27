@@ -12,8 +12,7 @@ import os
 
 # Start App, Init db
 try:
-    config_file = os.environ.get("CONFIG_PATH", "config.json")
-    init_db(file_path=config_file)
+    init_db(file_path="config.json")
 except IntegrityError as e:
     print(f"Devies from config file allready present in database")
 app = FastAPI()

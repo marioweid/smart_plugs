@@ -9,19 +9,18 @@ class SmartDevice:
         device_id: str,
         local_key: str,
         ip4_address: str,
-        db_id: str | None = None,
+        id: str | None = None,
         name: str | None = None,
         version: str = "3.3",
     ):
         self._device: tinytuya.OutletDevice = tinytuya.OutletDevice(
             dev_id=device_id, address=ip4_address, local_key=local_key, version=version
         )
-        self.db_id = db_id
+        self.id = id
         self.name = name
 
     def status(self):
         status = self._device.status()
-        print(status)
         return DeviceStatus(status)
 
     def is_on(self) -> bool:

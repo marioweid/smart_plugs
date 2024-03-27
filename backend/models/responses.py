@@ -1,7 +1,8 @@
 from pydantic import BaseModel, Field
+import uuid
 
-class DevicesResponse(BaseModel):
-    db_id: int = Field(..., title="Database ID", description="The unique identifier of the device in the database")
+class DeviceResponse(BaseModel):
+    id: uuid.UUID = Field(..., title="Database ID", description="The unique identifier of the device in the database")
     name: str = Field(..., title="Device Name", description="The name of the device")
     is_on: bool = Field(..., title="Device State", description="The current state of the device (on/off)")
     model_config = {

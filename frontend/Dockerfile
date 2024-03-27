@@ -21,43 +21,45 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage. (Disable them)
-# ARG NEXT_SHARP_PATH=/app/node_modules/sharp
-# ENV NEXT_SHARP_PATH=${NEXT_SHARP_PATH}
-
-RUN npm run build
-
-# Production image, copy all the files and run next
-FROM base AS runner
-WORKDIR /app
-
-# ENV NODE_ENV production
-# Uncomment the following line in case you want to disable telemetry during runtime.
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/public ./public
-
-# If i whould have some do some certificate stuff here
-# RUN wget https://xxxxx.cer --no-check-certificate -O /usr/local/share/ca-certificates/xxxxx.crt
-# RUN update-ca-certificates
-
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
-
-ENV PORT 3000
-# set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
-
-# server.js is created by next build from the standalone output
 CMD ["echo", "Hello from frontend"]
+
+# # Next.js collects completely anonymous telemetry data about general usage. (Disable them)
+# # ARG NEXT_SHARP_PATH=/app/node_modules/sharp
+# # ENV NEXT_SHARP_PATH=${NEXT_SHARP_PATH}
+
+# RUN npm run build
+
+# # Production image, copy all the files and run next
+# FROM base AS runner
+# WORKDIR /app
+
+# # ENV NODE_ENV production
+# # Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED 1
+
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
+
+# COPY --from=builder /app/public ./public
+
+# # If i whould have some do some certificate stuff here
+# # RUN wget https://xxxxx.cer --no-check-certificate -O /usr/local/share/ca-certificates/xxxxx.crt
+# # RUN update-ca-certificates
+
+# # Set the correct permission for prerender cache
+# RUN mkdir .next
+# RUN chown nextjs:nodejs .next
+
+# # Automatically leverage output traces to reduce image size
+# # https://nextjs.org/docs/advanced-features/output-file-tracing
+# COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+# COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# USER nextjs
+
+# ENV PORT 3000
+# # set hostname to localhost
+# ENV HOSTNAME "0.0.0.0"
+
+# # server.js is created by next build from the standalone output
+# CMD ["echo", "Hello from frontend"]

@@ -3,7 +3,6 @@ version: '3'
 services:
   
   backend:
-    image: python:3.12.2-slim
     build: backend
     ports:
       - "5000:5000"
@@ -16,7 +15,6 @@ services:
       - smart_plug_network
   
   frontend:
-    image: node:20.11.0-alpine
     build: frontend
     ports:
       - "8082:3000"

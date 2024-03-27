@@ -8,10 +8,12 @@ from SmartDevice import SmartDevice
 from models.responses import DeviceResponse
 from database import get_db, init_db
 import uvicorn
+import os
 
 # Start App, Init db
 try:
-    init_db(file_path="config.json")
+    config_file = os.environ.get("CONFIG_PATH", "config.json")
+    init_db(file_path=config_file)
 except IntegrityError as e:
     print(f"Devies from config file allready present in database")
 app = FastAPI()

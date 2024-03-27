@@ -9,6 +9,7 @@ services:
       - "5000"
     environment:
       CONFIG_PATH: $CONFIG_PATH
+      BACKEND_PORT: 5000
     command: ["uvicorn", "--host", "0.0.0.0", "--port", "5000", "main:app"]
 
     networks:
@@ -18,7 +19,7 @@ services:
     image: node:20.11.0-alpine
     build: frontend
     ports:
-      - "5001:3000"
+      - "8082:3000"
     environment:
       BACKEND_URL: $BACKEND_URL
     networks:

@@ -1,5 +1,7 @@
 # smart_plugs
 
+<img src="imgs/app.png" alt="Image of the App" width="300"/>
+
 This repository will be a webservice that host a simple website to turn on and off smart devices in the local network using the [tinytuya](https://github.com/jasonacox/tinytuya) library
 
 ## Requirements

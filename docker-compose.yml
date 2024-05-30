@@ -4,17 +4,19 @@ services:
   
   backend:
     restart: always
-    build: backend
+    build:
+      context: backend
+      args:
+        CONFIG_FILE_LOCATION: config.json
     ports:
       - 5000
-    volumes:
-      - /home/mario/tools/smart_plugs/config.json:/app/config.json
     networks:
       - smart_plug_network
   
   frontend:
     restart: always
-    build: frontend
+    build:
+      context: frontend
     ports:
       - "8082:3000"
     environment:

@@ -1,0 +1,14 @@
+[
+    {
+        "name":"Kaffeemaschine",
+        "device_id":"bfb3d26661dc30d360wkhh",
+        "local_key":"gc.gN;i(COwd=}U#",
+        "ip4_address":"192.168.137.3"
+    },
+    {
+        "name":"Entfeuchter",
+        "device_id":"bf41ba54fe4f251097of1p",
+        "local_key":"Tqi=||f8~H<jaz{_",
+        "ip4_address":"192.168.137.4"
+    }
+]

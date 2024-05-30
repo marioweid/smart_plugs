@@ -10,7 +10,8 @@ ENV POETRY_HOME="/opt/poetry" \
 
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-COPY config.json /app/config.json
+ARG CONFIG_FILE_LOCATION
+COPY ${CONFIG_FILE_LOCATION} /app/config.json
 
 # `builder-base` stage is used to build deps + create our virtual environment
 FROM python-base as builder-base

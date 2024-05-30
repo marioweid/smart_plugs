@@ -7,7 +7,7 @@ class DeviceStatus:
     Human readable dictionary from the status()-function (currently only is_on is used)
     """
 
-    is_on: bool
+    is_on: int # 0 = off, 1 = on, 2 = unknown
     countdown: int | None
     add_ele: int | None
     cur_current: int | None
@@ -19,20 +19,35 @@ class DeviceStatus:
     cycle_time: str | None
     random_time: str | None
     switch_inching: str | None
+    # {'Error': 'Network Error: Device Unreachable', 'Err': '905', 'Payload': None}
 
     def __init__(self, device_status: dict):
-        self.is_on: bool = device_status["dps"].get("1")  # Error if can't read
-        self.countdown: int | None = device_status["dps"].get("9", None)
-        self.add_ele: int | None = device_status["dps"].get("17", None)
-        self.cur_current: int | None = device_status["dps"].get("18", None)
-        self.cur_power: int | None = device_status["dps"].get("19", None)
-        self.cur_voltage: int | None = device_status["dps"].get("20", None)
-        self.relay_status: str | None = device_status["dps"].get("38", None)
-        self.light_mode: str | None = device_status["dps"].get("39", None)
-        self.child_lock: bool | None = device_status["dps"].get("40", None)
-        self.cycle_time: str | None = device_status["dps"].get("41", None)
-        self.random_time: str | None = device_status["dps"].get("42", None)
-        self.switch_inching: str | None = device_status["dps"].get("43", None)
+        if device_status.get("dps") is None:
+            self.is_on: int = 2
+            self.countdown: int | None = None
+            self.add_ele: int | None = None
+            self.cur_current: int | None = None
+            self.cur_power: int | None = None
+            self.cur_voltage: int | None = None
+            self.relay_status: str | None = None
+            self.light_mode: str | None = None
+            self.child_lock: bool | None = None
+            self.cycle_time: str | None = None
+            self.random_time: str | None = None
+            self.switch_inching: str | None = None
+        else:            
+            self.is_on: int = 1 if device_status["dps"].get("1") else 0 # Error if can't read
+            self.countdown: int | None = device_status["dps"].get("9", None)
+            self.add_ele: int | None = device_status["dps"].get("17", None)
+            self.cur_current: int | None = device_status["dps"].get("18", None)
+            self.cur_power: int | None = device_status["dps"].get("19", None)
+            self.cur_voltage: int | None = device_status["dps"].get("20", None)
+            self.relay_status: str | None = device_status["dps"].get("38", None)
+            self.light_mode: str | None = device_status["dps"].get("39", None)
+            self.child_lock: bool | None = device_status["dps"].get("40", None)
+            self.cycle_time: str | None = device_status["dps"].get("41", None)
+            self.random_time: str | None = device_status["dps"].get("42", None)
+            self.switch_inching: str | None = device_status["dps"].get("43", None)
 
     def __repr__(self):
         return (

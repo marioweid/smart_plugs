@@ -3,7 +3,6 @@ from models.tuya import DeviceStatus
 
 
 class SmartDevice:
-
     def __init__(
         self,
         device_id: str,
@@ -14,36 +13,38 @@ class SmartDevice:
         version: str = "3.3",
     ):
         self._device: tinytuya.OutletDevice = tinytuya.OutletDevice(
-            dev_id=device_id, address=ip4_address, local_key=local_key, version=version
+            dev_id=device_id,
+            address=ip4_address,
+            local_key=local_key,
+            version=version,
+            connection_retry_limit=1,
+            connection_timeout=3,
         )
         self.id = id
         self.name = name
+        self.ip4 = ip4_address
 
-    def status(self):
+    def status(self) -> DeviceStatus:
+        """Get the state of the device.
+
+        Returns:
+            DeviceStatus: state of the device
+              - is_on (int): 0=off 1=on 2=unknown
+        """
         status = self._device.status()
         return DeviceStatus(status)
 
-    def is_on(self) -> bool:
-        """Returns the power state of the SmartDevice and sets the self.latest_is_on
-
-        Returns:
-            bool: the power state of the device [1 (on) 0 (off)]
-        """
-
-        try:
-            state = self.status().is_on
-        except KeyError:
-            state = False
-        return state 
-
-    def toggle_power(self) -> bool:
+    def toggle_power(self) -> int:
         """Toggles the power state of the device
 
         Returns:
-            bool: The new power state of the device
+            int: The new power state of the device
         """
-        if self.is_on():
-            status = self._device.turn_off()
-        else:
-            status = self._device.turn_on()
+        match self.status().is_on:
+            case 1:
+                status = self._device.turn_off()
+            case 0:
+                status = self._device.turn_on()
+            case _:
+                return 2
         return DeviceStatus(status).is_on

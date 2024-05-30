@@ -1,0 +1,8 @@
+[
+    {
+        "name":"<Name>",
+        "device_id":"<DEVICE_ID>",
+        "local_key":"<LOCAL_KEY_FROM_TUYA>",
+        "ip4_address":"<LOCAL_IP4>"
+    }
+]

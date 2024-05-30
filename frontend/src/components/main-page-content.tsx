@@ -12,16 +12,16 @@ type DeviceCardProps = {
     toggleFunction: Function
 }
 
-export default function DeviceCard(props: DeviceCardProps) {
+export default function MainPageContent(props: DeviceCardProps) {
     let router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
 
     async function toggle(){
+        console.log(`loading: (${loading})`)
         setLoading(true);
 
         await props.toggleFunction(props.id);
         router.refresh();
-        setLoading(false);
     }
 
     function getColor(status: number){

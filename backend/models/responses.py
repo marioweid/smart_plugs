@@ -4,13 +4,13 @@ import uuid
 class DeviceResponse(BaseModel):
     id: uuid.UUID = Field(..., title="Database ID", description="The unique identifier of the device in the database")
     name: str = Field(..., title="Device Name", description="The name of the device")
-    is_on: bool = Field(..., title="Device State", description="The current state of the device (on/off)")
+    is_on: int = Field(..., title="Device State", description="The current state of the device (on[1]/off[0]/unknown[2])")
     model_config = {
         "json_schema_extra": {
             "example": {
                 "db_id": "7e5521fc-df5c-42d4-82e0-1e8fecf2485e",
                 "name": "Smart Plug",
-                "is_on": True
+                "is_on": 1
             }
         }
     }
